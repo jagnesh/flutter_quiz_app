@@ -7,12 +7,10 @@ class GradiantView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Colors.pink,
-            Colors.pinkAccent,
-          ],
-        ),
+        gradient: LinearGradient(colors: [
+          Colors.pink,
+          Colors.pinkAccent,
+        ], begin: Alignment.topLeft, end: Alignment.bottomCenter),
       ),
       child: childView,
     );

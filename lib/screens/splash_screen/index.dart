@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({Key? key}) : super(key: key);
-
+  const SplashScreen(this.switchScreen, {Key? key}) : super(key: key);
+  final void Function() switchScreen;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -12,29 +13,33 @@ class SplashScreen extends StatelessWidget {
           Image.asset(
             'assets/images/quiz-logo.png',
             width: 300,
+            color: const Color.fromARGB(150, 255, 255, 255),
           ),
           const SizedBox(
-            height: 50,
+            height: 80,
           ),
-          const Text(
+          Text(
             "Flutter Quiz App",
-            style: TextStyle(
+            style: GoogleFonts.lato(
               fontSize: 24,
-              color: Colors.white,
+              color: const Color.fromARGB(255, 255, 255, 255),
             ),
           ),
           const SizedBox(
             height: 30,
           ),
-          OutlinedButton(
-              style: TextButton.styleFrom(
+          OutlinedButton.icon(
+              style: OutlinedButton.styleFrom(
                   foregroundColor: Colors.white,
                   textStyle: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
                   )),
-              onPressed: () {},
-              child: const Text(
+              onPressed: () {
+                switchScreen();
+              },
+              icon: const Icon(Icons.arrow_right_alt),
+              label: const Text(
                 'Start Quiz',
               ))
         ],

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class GradiantView extends StatelessWidget {
-  const GradiantView({Key? key, required this.childView}) : super(key: key);
-  final Widget childView;
+  const GradiantView({Key? key, this.child}) : super(key: key);
+  final Widget? child;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -12,7 +12,7 @@ class GradiantView extends StatelessWidget {
           Colors.pinkAccent,
         ], begin: Alignment.topLeft, end: Alignment.bottomCenter),
       ),
-      child: childView,
+      child: child,
     );
   }
 }

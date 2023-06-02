@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/data/questions.dart';
 import 'package:quiz_app/screens/questions_screen/index.dart';
 import 'package:quiz_app/screens/result_screen/index.dart';
 import 'package:quiz_app/screens/splash_screen/index.dart';
@@ -29,9 +30,18 @@ class _QuizState extends State<Quiz> {
     });
   }
 
+  void restartQuiz() {
+    setState(() {
+      selectedAnswer = [];
+      activeScreen = 'splash_screen';
+    });
+  }
+
   void chooseAnswer(String answer) {
     selectedAnswer.add(answer);
-    print(selectedAnswer);
+    if (selectedAnswer.length == questions.length) {
+      showResult();
+    }
   }
 
   @override
@@ -42,10 +52,13 @@ class _QuizState extends State<Quiz> {
         screenWidget = SplashScreen(switchScreen);
         break;
       case 'questions_screen':
-        screenWidget = QuestionScreen(showResult, chooseAnswer);
+        screenWidget = QuestionScreen(chooseAnswer);
         break;
       case 'results_screen':
-        screenWidget = const ResultScreen();
+        screenWidget = ResultScreen(
+          restartQuiz: restartQuiz,
+          selectedAnswer: selectedAnswer,
+        );
         break;
     }
     return MaterialApp(

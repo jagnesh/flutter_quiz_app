@@ -1,12 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/data/questions.dart';
+import 'package:quiz_app/screens/result_screen/question_summary.dart';
+import 'package:quiz_app/widgets/answer_button.dart';
 
 class ResultScreen extends StatelessWidget {
-  const ResultScreen({Key? key}) : super(key: key);
+  const ResultScreen(
+      {Key? key, required this.selectedAnswer, required this.restartQuiz})
+      : super(key: key);
+  final List<String> selectedAnswer;
+  final void Function() restartQuiz;
+
+  List<Map<String, Object>> getSummaryData() {
+    final List<Map<String, Object>> summary = [];
+    for (var i = 0; i < selectedAnswer.length; i++) {
+      summary.add({
+        'question_index': i,
+        'question': questions[i].text,
+        'correct_answer': questions[i].answers[0],
+        'user_answer': selectedAnswer[i],
+        'isTrue': questions[i].answers[0] == selectedAnswer[i]
+      });
+    }
+    return summary;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("Result"),
+    final summarydata = getSummaryData();
+    final numberOfTotalQuestions = questions.length;
+    final numberOfCorrectQuestions =
+        summarydata.where((data) => data['isTrue'] as bool).length;
+    return SizedBox(
+      width: double.infinity,
+      child: Container(
+        margin: const EdgeInsets.fromLTRB(40, 80, 40, 40),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+                "You answered $numberOfTotalQuestions out $numberOfCorrectQuestions questions correctly"),
+            const SizedBox(
+              height: 30,
+            ),
+            Expanded(child: QuestionSummary(getSummaryData())),
+            const SizedBox(
+              height: 30,
+            ),
+            AnswerButton(
+              answerText: "Restart Quiz",
+              onTap: restartQuiz,
+            )
+          ],
+        ),
+      ),
     );
   }
 }

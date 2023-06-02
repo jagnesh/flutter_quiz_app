@@ -8,8 +8,8 @@ class GradiantView extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(colors: [
-          Colors.pink,
-          Colors.pinkAccent,
+          Color.fromARGB(255, 116, 124, 235),
+          Color.fromARGB(255, 3, 144, 187),
         ], begin: Alignment.topLeft, end: Alignment.bottomCenter),
       ),
       child: child,
